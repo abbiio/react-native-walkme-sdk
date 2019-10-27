@@ -12,107 +12,77 @@ RCT_EXPORT_MODULE()
 
 RCT_EXPORT_METHOD(start:(NSString *)key secret:(NSString *)secret)
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [ABBI start:key withSecretKey:secret];
-    });
+    [ABBI start:key withSecretKey:secret];
 }
 
 RCT_EXPORT_METHOD(restart)
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [ABBI restart];
-    });
+    [ABBI restart];
 }
 
 RCT_EXPORT_METHOD(stop)
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [ABBI stop];
-    });
+    [ABBI stop];
 }
 
-RCT_EXPORT_METHOD(sendGoal:(NSString *)goalName withProperites:(NSDictionary *)properties)
+RCT_EXPORT_METHOD(sendGoal:(NSString *)goalName properites:(NSDictionary *)properties)
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [ABBI sendGoal:goalName withProperites:properties];
-    });
+    [ABBI sendGoal:goalName withProperites:properties];
 }
 
-RCT_EXPORT_METHOD(setUserAttributeWithKey:(NSString *)key andValue:(id)value)
+RCT_EXPORT_METHOD(setUserAttribute:(NSString *)key value:(id)value)
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [ABBI setUserAttributeWithKey:key andValue:value];
-    });
+    [ABBI setUserAttributeWithKey:key andValue:value];
 }
 
 RCT_EXPORT_METHOD(setUserAttributes:(NSDictionary *)attributes)
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [ABBI setUserAttributes:attributes];
-    });
+    [ABBI setUserAttributes:attributes];
 }
 
-RCT_EXPORT_METHOD(setPrivateUserAttributeWithKey:(NSString *)key andValue:(id)value)
+RCT_EXPORT_METHOD(setPrivateUserAttribute:(NSString *)key value:(id)value)
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [ABBI setPrivateUserAttributeWithKey:key andValue:value];
-    });
+    [ABBI setPrivateUserAttributeWithKey:key andValue:value];
 }
 
 RCT_EXPORT_METHOD(setPrivateUserAttributes:(NSDictionary *)attributes)
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [ABBI setPrivateUserAttributes:attributes];
-    });
+    [ABBI setPrivateUserAttributes:attributes];
 }
 
 RCT_EXPORT_METHOD(clearPrivateUserAttributes)
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [ABBI clearPrivateUserAttributes];
-    });
+    [ABBI clearPrivateUserAttributes];
 }
 
 RCT_EXPORT_METHOD(setFlag:(NSNumber *)num)
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [ABBI setFlag:num.intValue];
-    });
+    [ABBI setFlag:num.intValue];
 }
 
-RCT_EXPORT_METHOD(trigger:(NSString *)trigger withDeepLink:(NSString *)deepLink)
+RCT_EXPORT_METHOD(trigger:(NSString *)trigger deepLink:(NSString *)deepLink)
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [ABBI trigger:trigger withDeepLink:deepLink];
-    });
+    [ABBI trigger:trigger withDeepLink:deepLink];
 }
 
 RCT_EXPORT_METHOD(setUserID:(NSString *)userId)
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [ABBI setUserID:userId];
-    });
+    [ABBI setUserID:userId];
 }
 
 RCT_EXPORT_METHOD(setEventsFilter:(NSArray *)events)
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [ABBI setEventsFilter:events];
-    });
+    [ABBI setEventsFilter:events];
 }
 
 RCT_EXPORT_METHOD(setScreenID:(NSString *)screenID)
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [ABBI setScreenID:screenID];
-    });
+    [ABBI setScreenID:screenID];
 }
 
 RCT_EXPORT_METHOD(setLanguage:(NSString *)language)
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [ABBI setLanguage:language];
-    });
+    [ABBI setLanguage:language];
 }
 
 @end
