@@ -1,4 +1,3 @@
-
 {
   "name": "react-native-walkme-sdk",
   "version": "2.0.0",
@@ -13,8 +12,15 @@
     "walkmesdk"
   ],
   "author": "WalkMe",
-  "license": "",
+  "license": "Commerical",
+  "devDependencies": {
+    "react-native": "^0.41.2"
+  },
   "peerDependencies": {
     "react-native": "^0.41.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abbiio/react-native-walkme-sdk.git"
   }
 }
