@@ -55,7 +55,7 @@ RCT_EXPORT_METHOD(clearPrivateUserAttributes)
     [ABBI clearPrivateUserAttributes];
 }
 
-RCT_EXPORT_METHOD(setFlag:(NSNumber *)num)
+RCT_EXPORT_METHOD(setFlag:(nonnull NSNumber *)num)
 {
     [ABBI setFlag:num.intValue];
 }
@@ -86,4 +86,3 @@ RCT_EXPORT_METHOD(setLanguage:(NSString *)language)
 }
 
 @end
-  
