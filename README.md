@@ -34,8 +34,149 @@
   	```
 ## Usage
 ```javascript
-import RNWalkMeSdk from 'react-native-walkme-sdk';
+import WalkMeSDK from 'react-native-walkme-sdk';
+...
+/**
+ * Starts ABBI SDK.
+ *
+ * @param appId The Application Id provided by WalkMe
+ * @param appSecretKey The Application Secret key provided by WalkMe
+ *
+ * To get your Application Id and Application Secret key, login to WalkMe console at https://console.mobile.walkme.com
+ * and click the settings icon near your Application Name. You can find more info here - https://walkme-mobile.zendesk.com/hc
+ */
+WalkMeSDK.start(appId, appSecretKey)
 
-// TODO: What to do with the module?
-RNWalkMeSdk;
+/**
+ * Restarts ABBI SDK.
+ *
+ * This method can be called only after ABBI start was called first.
+ * Restart ABBI SDK is allowed if old session is at least 1 minute old
+ */
+WalkMeSDK.restart()
+
+/**
+ * Stop ABBI SDK.
+ *
+ * This method can be called only after ABBI start was called first.
+ * Stop abbi SDK is allowed if old session is at least 1 minute old
+ */
+WalkMeSDK.stop()
+
+
+/**
+ * Sends a Goal to ABBI's Backend.
+ * A Goal is a user action that can be used to target your users.
+ *
+ * Usage Example :@
+ *
+ * WalkMeSDK.sendGoal("goalName")
+ * WalkMeSDK.sendGoal("goalName", {"x": 3, "y": "yes", "z": false})
+ *
+ * @param goalName the Goal name.
+ * @param properties the Goal properties, key-value structured (if any).
+ */
+WalkMeSDK.sendGoal(goalName, properties)
+
+/**
+ * Sets a user attribute
+ *
+ * @param key the attribute key
+ * @param value the attribute value
+ *
+ * Usage Example:
+ * WalkMeSDK.setUserAttribute("key", "value")
+ *
+ */
+WalkMeSDK.setUserAttribute(key, value)
+
+/**
+ * Sets multiple user attributes
+ *
+ * @param attributes the user attributes
+ *
+ * @code
+ * Usage Example:
+ * WalkMeSDK.setUserAttributes({"x": 3, "y": "yes", "z": false})
+ */
+WalkMeSDK.setUserAttributes(attributes)
+
+/**
+ * Sets a private user attribute
+ *
+ * @param key the attribute key
+ * @param value the attribute value
+ *
+ * Usage Example:
+ * WalkMeSDK.setPrivateUserAttribute("key", "value")
+ *
+ */
+WalkMeSDK.setPrivateUserAttribute(key, value)
+
+/**
+ * Sets multiple private user attributes
+ *
+ * @param attributes the private user attributes
+ *
+ * @code
+ * Usage Example:
+ * WalkMeSDK.setPrivateUserAttributes({"x": 3, "y": "yes", "z": false})
+ */
+WalkMeSDK.setPrivateUserAttributes(attributes)
+
+/**
+ * Clears all private user attributes
+ */
+WalkMeSDK.clearPrivateUserAttributes()
+
+/**
+ * Launches a campaign by trigger key
+ * Once invoked, the method will show the campaign WITHOUT any of its segments (if defined)
+ *
+ * @code
+ * Usage Example :
+ * WalkMeSDK.trigger("key", "myApp://home/signup")
+ */
+WalkMeSDK.trigger(key, deepLink)
+
+/**
+ * Sets user id
+ *
+ * @param userId the user id as NSString
+ *
+ * @code
+ * Usage Example:
+ * WalkMeSDK.setUserID("someUserID")
+ */
+WalkMeSDK.setUserID(userId)
+
+/**
+ * Set events that won't be sent
+ *
+ * @param events of type WMStatsEventType that won't be sent
+ *
+ * @code
+ * Usage Example :
+ * WalkMeSDK.setEventsFilter(["interaction", "view_transition"])
+ *
+ */
+WalkMeSDK.setEventsFilter(events)
+
+/**
+ * Set ID for a specific screen.
+ * When used, this should be called everytime the screen shows
+ *
+ * @param screenID the ID to set for a specific screen
+ *
+ */
+WalkMeSDK.setScreenID(screenID)
+
+/**
+ * Set the language for your campaigns.
+ * When used, the language param you pass should match the name of one of the languages you’ve set up in the console.
+ *
+ * @param language the language for which you want the SDK to display your campaigns
+ *
+ */
+WalkMeSDK.setLanguage(language)
 ```
