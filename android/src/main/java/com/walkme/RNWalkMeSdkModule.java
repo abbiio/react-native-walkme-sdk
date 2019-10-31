@@ -9,6 +9,9 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import abbi.io.abbisdk.ABBI;
 
 public class RNWalkMeSdkModule extends ReactContextBaseJavaModule {
@@ -91,7 +94,16 @@ public class RNWalkMeSdkModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void setEventsFilter(ReadableArray events) {
-    ABBI.setEventsFilter(events.toArrayList());
+    ArrayList<String> eventsAsString = new ArrayList<>();
+    ArrayList<Object> objectArrayList = events.toArrayList();
+
+    for (int i = 0; i < objectArrayList.size(); i++) {
+      Object value = objectArrayList.get(i);
+      if (value instanceof String) {
+        eventsAsString.add((String) value);
+      }
+    }
+    ABBI.setEventsFilter(eventsAsString);
   }
 
   @ReactMethod
