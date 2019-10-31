@@ -1,19 +1,20 @@
 
 package com.walkme;
 
+import android.util.Log;
+
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.bridge.Callback;
+import com.facebook.react.bridge.ReadableArray;
+import com.facebook.react.bridge.ReadableMap;
+
 import abbi.io.abbisdk.ABBI;
 
 public class RNWalkMeSdkModule extends ReactContextBaseJavaModule {
 
-  private final ReactApplicationContext reactContext;
-
   public RNWalkMeSdkModule(ReactApplicationContext reactContext) {
     super(reactContext);
-    this.reactContext = reactContext;
   }
 
   @Override
@@ -23,7 +24,12 @@ public class RNWalkMeSdkModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void start(String key, String secret) {
-    ABBI.start(key, secret, reactContext);
+    if (this.getCurrentActivity() != null) {
+      ABBI.start(key, secret, this.getCurrentActivity());
+    }
+    else {
+      Log.d("WalkMeSDK","Activity is null");
+    }
   }
 
   @ReactMethod
@@ -38,7 +44,7 @@ public class RNWalkMeSdkModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void sendGoal(String goalName, ReadableMap properties) {
-    ABBI.sendGoal(goalName, properties);
+    ABBI.sendGoal(goalName, properties.toHashMap());
   }
 
   // WARNING - DO NOT USE - Use setUserAttributes instead
@@ -85,7 +91,7 @@ public class RNWalkMeSdkModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void setEventsFilter(ReadableArray events) {
-    ABBI.setEventsFilter(events);
+    ABBI.setEventsFilter(events.toArrayList());
   }
 
   @ReactMethod
