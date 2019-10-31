@@ -10,7 +10,6 @@ import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import abbi.io.abbisdk.ABBI;
 
@@ -47,12 +46,8 @@ public class RNWalkMeSdkModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void sendGoal(String goalName, ReadableMap properties) {
-    ABBI.sendGoal(goalName, properties.toHashMap());
+    ABBI.sendGoal(goalName, properties != null ? properties.toHashMap() : null);
   }
-
-  // WARNING - DO NOT USE - Use setUserAttributes instead
-  @ReactMethod
-  public void setUserAttribute(String key, ReadableMap value) {}
 
   @ReactMethod
   public void setUserAttributes(ReadableMap object) {
@@ -60,10 +55,6 @@ public class RNWalkMeSdkModule extends ReactContextBaseJavaModule {
       ABBI.setUserAttributes(object.toHashMap());
     }
   }
-
-  // WARNING - DO NOT USE - Use setPrivateUserAttributes instead
-  @ReactMethod
-  public void setPrivateUserAttribute(String key, ReadableMap value) {}
 
   @ReactMethod
   public void setPrivateUserAttributes(ReadableMap object) {
@@ -94,16 +85,18 @@ public class RNWalkMeSdkModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void setEventsFilter(ReadableArray events) {
-    ArrayList<String> eventsAsString = new ArrayList<>();
-    ArrayList<Object> objectArrayList = events.toArrayList();
+    if (events != null) {
+      ArrayList<String> eventsAsString = new ArrayList<>();
+      ArrayList<Object> objectArrayList = events.toArrayList();
 
-    for (int i = 0; i < objectArrayList.size(); i++) {
-      Object value = objectArrayList.get(i);
-      if (value instanceof String) {
-        eventsAsString.add((String) value);
+      for (int i = 0; i < objectArrayList.size(); i++) {
+        Object value = objectArrayList.get(i);
+        if (value instanceof String) {
+          eventsAsString.add((String) value);
+        }
       }
+      ABBI.setEventsFilter(eventsAsString);
     }
-    ABBI.setEventsFilter(eventsAsString);
   }
 
   @ReactMethod

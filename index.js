@@ -1,5 +1,5 @@
 
-import { NativeModules } from 'react-native';
+import { NativeModules, Platform } from 'react-native';
 
 const { RNWalkMeSdk } = NativeModules;
 
@@ -17,13 +17,23 @@ const WalkMeSDK = {
         RNWalkMeSdk.sendGoal(goalName, properties);
     },
     setUserAttribute: function(key, value) {
-        RNWalkMeSdk.setUserAttribute(key, value);
+        if (Platform.OS === 'ios') {
+            RNWalkMeSdk.setUserAttribute(key, value);
+        }
+        else {
+          console.log("WalkMeSDK: Unsupported - Use setUserAttributes instead");
+        }
     },
     setUserAttributes: function(attributes) {
         RNWalkMeSdk.setUserAttributes(attributes);
     },
     setPrivateUserAttribute: function(key, value) {
-        RNWalkMeSdk.setPrivateUserAttribute(key, value);
+        if (Platform.OS === 'ios') {
+            RNWalkMeSdk.setPrivateUserAttribute(key, value);
+        }
+        else {
+          console.log("WalkMeSDK: Unsupported - Use setPrivateUserAttributes instead");
+        }
     },
     setPrivateUserAttributes: function (attributes) {
         RNWalkMeSdk.setPrivateUserAttributes(attributes);
