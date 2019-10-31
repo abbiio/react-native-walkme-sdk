@@ -31,6 +31,6 @@ repositories {
 }
 
 dependencies {
-    compile 'com.facebook.react:react-native:+'
+    implementation 'abbi.io:abbisdk:+'
+    implementation 'com.facebook.react:react-native:+'
 }
-  
