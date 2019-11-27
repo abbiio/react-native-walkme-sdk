@@ -1,6 +1,6 @@
 {
   "name": "react-native-walkme-sdk",
-  "version": "2.0.10",
+  "version": "2.0.11",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -13,6 +13,8 @@
   ],
   "author": "WalkMe",
   "license": "Commerical",
+  "homepage": "https://walkme.com",
+  "summary": "Simple SDK for developers to manage and maximize conversions of all in-app promotions.",
   "devDependencies": {
     "react-native": "^0.41.2"
   },
