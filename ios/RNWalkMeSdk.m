@@ -93,22 +93,24 @@ RCT_EXPORT_METHOD(setLanguage:(NSString *)language)
 
 #pragma mark - WMCampaignInfoDelegate
 
+__unused static id ObjectOrNull(id object) {
+    return object ? object : [NSNull null];
+}
+
 - (void)campaignWillShow:(WMCampaignInfo *)campaignInfo {
     NSDictionary *body = @{
-        @"campagin_id": campaignInfo.campaignId,
-        @"cta": campaignInfo.campaginCta,
-        @"cta_id": campaignInfo.campaignCtaId,
-        @"data": campaignInfo.campaignData
+        @"campagin_id": ObjectOrNull(campaignInfo.campaignId),
+        @"data": ObjectOrNull(campaignInfo.campaignData)
     };
     [self sendEventWithName:wmCampaignInfoEventWillShow body:body];
 }
 
 - (void)campaignDidDismiss:(WMCampaignInfo *)campaignInfo {
     NSDictionary *body = @{
-        @"campagin_id": campaignInfo.campaignId,
-        @"cta": campaignInfo.campaginCta,
-        @"cta_id": campaignInfo.campaignCtaId,
-        @"data": campaignInfo.campaignData
+        @"campagin_id": ObjectOrNull(campaignInfo.campaignId),
+        @"cta": ObjectOrNull(campaignInfo.campaginCta),
+        @"cta_id": ObjectOrNull(campaignInfo.campaignCtaId),
+        @"data": ObjectOrNull(campaignInfo.campaignData)
     };
     [self sendEventWithName:wmCampaignInfoEventDismissed body:body];
 }

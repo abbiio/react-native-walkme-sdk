@@ -1,12 +1,15 @@
 
-import { NativeModules, Platform } from 'react-native';
+import { NativeModules, NativeEventEmitter, Platform } from 'react-native';
 
 const { RNWalkMeSdk } = NativeModules;
+
+const wmCampaignInfoEventEmitter = new NativeEventEmitter(RNWalkMeSdk);
 
 const WalkMeSDK = {
     start: function(key, secret) {
         RNWalkMeSdk.start(key, secret);
     },
+    campaignEventEmitter: wmCampaignInfoEventEmitter,
     restart: function() {
         RNWalkMeSdk.restart();
     },
