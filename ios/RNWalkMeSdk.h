@@ -3,9 +3,15 @@
 #import "RCTBridgeModule.h"
 #else
 #import <React/RCTBridgeModule.h>
+#import <React/RCTEventEmitter.h>
 #endif
 
-@interface RNWalkMeSdk : NSObject <RCTBridgeModule>
+#import <WalkMeSDK/WalkMeSDK.h>
+
+#define wmCampaignInfoEventDismissed    @"wmCampaignInfoEventDismissed"
+#define wmCampaignInfoEventWillShow     @"wmCampaignInfoEventWillShow"
+
+@interface RNWalkMeSdk : RCTEventEmitter <RCTBridgeModule, WMCampaignInfoDelegate>
 
 @end
   

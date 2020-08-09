@@ -1,6 +1,5 @@
 
 #import "RNWalkMeSdk.h"
-#import <WalkMeSDK/WalkMeSDK.h>
 
 @implementation RNWalkMeSdk
 
@@ -10,9 +9,16 @@
 }
 RCT_EXPORT_MODULE()
 
+- (NSArray<NSString *> *)supportedEvents
+{
+  return @[wmCampaignInfoEventDismissed, wmCampaignInfoEventWillShow];
+}
+
 RCT_EXPORT_METHOD(start:(NSString *)key secret:(NSString *)secret)
 {
-    [ABBI start:key withSecretKey:secret];
+    WMStartOptions *options = [[WMStartOptions alloc] initWithKey:key andSecret:secret];
+    options.campaignInfoDelegate = self;
+    [ABBI startWithOptions:options];
 }
 
 RCT_EXPORT_METHOD(restart)
@@ -83,6 +89,28 @@ RCT_EXPORT_METHOD(setScreenID:(NSString *)screenID)
 RCT_EXPORT_METHOD(setLanguage:(NSString *)language)
 {
     [ABBI setLanguage:language];
+}
+
+#pragma mark - WMCampaignInfoDelegate
+
+- (void)campaignWillShow:(WMCampaignInfo *)campaignInfo {
+    NSDictionary *body = @{
+        @"campagin_id": campaignInfo.campaignId,
+        @"cta": campaignInfo.campaginCta,
+        @"cta_id": campaignInfo.campaignCtaId,
+        @"data": campaignInfo.campaignData
+    };
+    [self sendEventWithName:wmCampaignInfoEventWillShow body:body];
+}
+
+- (void)campaignDidDismiss:(WMCampaignInfo *)campaignInfo {
+    NSDictionary *body = @{
+        @"campagin_id": campaignInfo.campaignId,
+        @"cta": campaignInfo.campaginCta,
+        @"cta_id": campaignInfo.campaignCtaId,
+        @"data": campaignInfo.campaignData
+    };
+    [self sendEventWithName:wmCampaignInfoEventDismissed body:body];
 }
 
 @end
