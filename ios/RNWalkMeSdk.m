@@ -99,7 +99,7 @@ __unused static id ObjectOrNull(id object) {
 
 - (void)campaignWillShow:(WMCampaignInfo *)campaignInfo {
     NSDictionary *body = @{
-        @"campagin_id": ObjectOrNull(campaignInfo.campaignId),
+        @"campaign_id": ObjectOrNull(campaignInfo.campaignId),
         @"data": ObjectOrNull(campaignInfo.campaignData)
     };
     [self sendEventWithName:wmCampaignInfoEventWillShow body:body];
@@ -107,7 +107,7 @@ __unused static id ObjectOrNull(id object) {
 
 - (void)campaignDidDismiss:(WMCampaignInfo *)campaignInfo {
     NSDictionary *body = @{
-        @"campagin_id": ObjectOrNull(campaignInfo.campaignId),
+        @"campaign_id": ObjectOrNull(campaignInfo.campaignId),
         @"cta": ObjectOrNull(campaignInfo.campaginCta),
         @"cta_id": ObjectOrNull(campaignInfo.campaignCtaId),
         @"data": ObjectOrNull(campaignInfo.campaignData)
