@@ -157,7 +157,6 @@ public class RNWalkMeSdkModule extends ReactContextBaseJavaModule implements ABB
     sendEvent(this.getReactApplicationContext(), wmCampaignInfoEventDismissed, params);
   }
 
-  @Override
   public void onCampaignPresented(WMCampaignInfo wmCampaignInfo) {
     WritableMap params = Arguments.createMap();
 
