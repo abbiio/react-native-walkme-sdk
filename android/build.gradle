@@ -37,13 +37,10 @@ repositories {
         url 'https://maven.google.com/'
         name 'Google'
     }
-    maven {
-        url 'https://abbiio.bintray.com/maven/'
-        name 'abbi'
-    }
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
-    implementation('abbi.io:abbisdk:+')
+    implementation ('com.github.abbiio:androidsdk:+')
     implementation('com.facebook.react:react-native:+')
 }
