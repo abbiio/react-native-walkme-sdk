@@ -10,12 +10,15 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.WritableArray;
 
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.Arguments;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import abbi.io.abbisdk.ABBI;
@@ -25,6 +28,7 @@ import abbi.io.abbisdk.info.WMCampaignInfo;
 public class RNWalkMeSdkModule extends ReactContextBaseJavaModule implements ABBI.WMCampaignInfoListener {
   public static final String wmCampaignInfoEventDismissed   = "wmCampaignInfoEventDismissed";
   public static final String wmCampaignInfoEventWillShow    = "wmCampaignInfoEventWillShow";
+  public static final String wmCampaignInfoEventAction      = "wmCampaignInfoEventAction";
 
   public RNWalkMeSdkModule(ReactApplicationContext reactContext) {
     super(reactContext);
@@ -158,7 +162,22 @@ public class RNWalkMeSdkModule extends ReactContextBaseJavaModule implements ABB
   }
 
   public void onCampaignAction(WMCampaignInfo wmCampaignInfo, String actionType, String[] args, ABBI.WMCampaignActionListener wmCampaignActionListener) {
+    WritableMap params = Arguments.createMap();
 
+    if (actionType != null) {
+      params.putString("action_type", actionType);
+    }
+
+    if (args != null && args.length > 0) {
+      WritableArray argsArray = Arguments.createArray();
+      for (String s: args) {
+        argsArray.pushString(s);
+      }
+
+      params.putArray("args", argsArray);
+    }
+
+    sendEvent(this.getReactApplicationContext(), wmCampaignInfoEventAction, params);
   }
 
   public void onCampaignPresented(WMCampaignInfo wmCampaignInfo) {
