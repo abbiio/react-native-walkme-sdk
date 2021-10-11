@@ -44,6 +44,8 @@ repositories {
 }
 
 dependencies {
-    implementation "com.github.abbiio:androidsdk:${safeExtGet('walkmeVersion', '+')}"
+    implementation ("com.github.abbiio:androidsdk:${safeExtGet('walkmeVersion', '+')}") {
+        exclude group: 'androidx', module: 'appcompat'
+    }
     implementation "com.facebook.react:react-native:${safeExtGet('reactNativeVersion', '+')}"
 }
