@@ -11,6 +11,7 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableArray;
+
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.Arguments;
@@ -133,7 +134,6 @@ public class RNWalkMeSdkModule extends ReactContextBaseJavaModule implements ABB
             .emit(eventName, params);
   }
 
-  @Override
   public void onCampaignDismissed(WMCampaignInfo wmCampaignInfo) {
     WritableMap params = Arguments.createMap();
 
@@ -161,7 +161,6 @@ public class RNWalkMeSdkModule extends ReactContextBaseJavaModule implements ABB
     sendEvent(this.getReactApplicationContext(), wmCampaignInfoEventDismissed, params);
   }
 
-  @Override
   public void onCampaignAction(WMCampaignInfo wmCampaignInfo, String actionType, String[] args, ABBI.WMCampaignActionListener wmCampaignActionListener) {
     WritableMap params = Arguments.createMap();
 
