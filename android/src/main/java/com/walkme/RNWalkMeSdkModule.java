@@ -42,9 +42,18 @@ public class RNWalkMeSdkModule extends ReactContextBaseJavaModule implements ABB
   @ReactMethod
   public void start(String key, String secret) {
     if (this.getCurrentActivity() != null) {
-      WMStartOptions options = new WMStartOptions(key, secret, this.getCurrentActivity());
-      options.setCampaignInfoListener(this);
-      ABBI.start(options);
+      final String k = key;
+      final String s = secret;
+      final Activity activity = this;
+      final RNWalkMeSdkModule rn = this;
+      new Handler(Looper.getMainLooper()).post(new Runnable() {
+          @Override
+          public void run() {
+            WMStartOptions options = new WMStartOptions(k, s, activity);
+            options.setCampaignInfoListener(rn);
+            ABBI.start(options);
+          }
+      });
     }
     else {
       Log.d("WalkMeSDK","Activity is null");
