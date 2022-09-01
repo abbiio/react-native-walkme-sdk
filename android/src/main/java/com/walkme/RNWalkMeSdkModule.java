@@ -48,7 +48,8 @@ public class RNWalkMeSdkModule extends ReactContextBaseJavaModule implements ABB
     if (this.getCurrentActivity() != null) {
       final String k = key;
       final String s = secret;
-      final Activity activity = this;
+
+      final Activity activity = this.getCurrentActivity();
       final RNWalkMeSdkModule rn = this;
       new Handler(Looper.getMainLooper()).post(new Runnable() {
           @Override
