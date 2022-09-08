@@ -51,7 +51,7 @@ public class RNWalkMeSdkModule extends ReactContextBaseJavaModule implements ABB
 
       final Activity activity = this.getCurrentActivity();
       final RNWalkMeSdkModule rn = this;
-      new Handler(Looper.getMainLooper()).post(new Runnable() {
+      activity.runOnUiThread(new Runnable() {
           @Override
           public void run() {
             WMStartOptions options = new WMStartOptions(k, s, activity);
@@ -67,57 +67,119 @@ public class RNWalkMeSdkModule extends ReactContextBaseJavaModule implements ABB
 
   @ReactMethod
   public void restart() {
-    ABBI.restart();
+    Activity activity = this.getCurrentActivity();
+    activity.runOnUiThread(new Runnable() {
+        @Override
+        public void run() {
+          ABBI.restart();
+        }
+    });
   }
 
   @ReactMethod
   public void stop() {
-    ABBI.stop();
+    Activity activity = this.getCurrentActivity();
+    activity.runOnUiThread(new Runnable() {
+        @Override
+        public void run() {
+          ABBI.stop();
+        }
+    });
   }
 
   @ReactMethod
   public void sendGoal(String goalName, ReadableMap properties) {
-    ABBI.sendGoal(goalName, properties != null ? properties.toHashMap() : null);
+    Activity activity = this.getCurrentActivity();
+    final String gn = goalName;
+    final ReadableMap p = properties;
+    activity.runOnUiThread(new Runnable() {
+        @Override
+        public void run() {
+          ABBI.sendGoal(gn, p != null ? p.toHashMap() : null);
+        }
+    });
   }
 
   @ReactMethod
   public void setUserAttributes(ReadableMap object) {
     if (object != null) {
-      ABBI.setUserAttributes(object.toHashMap());
+      final ReadableMap o = object;
+      Activity activity = this.getCurrentActivity();
+      activity.runOnUiThread(new Runnable() {
+          @Override
+          public void run() {
+            ABBI.setUserAttributes(o.toHashMap());
+          }
+      });
     }
   }
 
   @ReactMethod
   public void setPrivateUserAttributes(ReadableMap object) {
     if (object != null) {
-      ABBI.setPrivateUserAttributes(object.toHashMap());
+      final ReadableMap o = object;
+      Activity activity = this.getCurrentActivity();
+      activity.runOnUiThread(new Runnable() {
+          @Override
+          public void run() {
+            ABBI.setPrivateUserAttributes(o.toHashMap());
+          }
+      });
     }
   }
 
   @ReactMethod
   public void clearPrivateUserAttributes() {
-    ABBI.clearPrivateUserAttributes();
+    Activity activity = this.getCurrentActivity();
+    activity.runOnUiThread(new Runnable() {
+        @Override
+        public void run() {
+          ABBI.clearPrivateUserAttributes();
+        }
+    });
   }
 
   @ReactMethod
   public void setFlag(int flag) {
-    ABBI.setFlag(flag);
+    final int f = flag;
+    Activity activity = this.getCurrentActivity();
+    activity.runOnUiThread(new Runnable() {
+        @Override
+        public void run() {
+          ABBI.setFlag(f);
+        }
+    });
   }
 
   @ReactMethod
   public void trigger(String trigger, String deeplink) {
-    ABBI.trigger(trigger, deeplink);
+    final String t = trigger;
+    final String dl = deeplink;
+    Activity activity = this.getCurrentActivity();
+    activity.runOnUiThread(new Runnable() {
+        @Override
+        public void run() {
+          ABBI.trigger(t, dl);
+        }
+    });
   }
 
   @ReactMethod
   public void setUserID(String userId) {
-    ABBI.setUserId(userId);
+    final String uid = userId;
+    Activity activity = this.getCurrentActivity();
+    activity.runOnUiThread(new Runnable() {
+        @Override
+        public void run() {
+          ABBI.setUserId(uid);
+        }
+    });
   }
 
   @ReactMethod
   public void setEventsFilter(ReadableArray events) {
     if (events != null) {
-      ArrayList<String> eventsAsString = new ArrayList<>();
+      final ArrayList<String> eventsAsString = new ArrayList<>();
       ArrayList<Object> objectArrayList = events.toArrayList();
 
       for (int i = 0; i < objectArrayList.size(); i++) {
@@ -126,18 +188,38 @@ public class RNWalkMeSdkModule extends ReactContextBaseJavaModule implements ABB
           eventsAsString.add((String) value);
         }
       }
-      ABBI.setEventsFilter(eventsAsString);
+      Activity activity = this.getCurrentActivity();
+      activity.runOnUiThread(new Runnable() {
+          @Override
+          public void run() {
+            ABBI.setEventsFilter(eventsAsString);
+          }
+      });
     }
   }
 
   @ReactMethod
   public void setScreenID(String screenID) {
-    ABBI.setScreenID(screenID);
+    final String sId = screenID;
+    Activity activity = this.getCurrentActivity();
+    activity.runOnUiThread(new Runnable() {
+        @Override
+        public void run() {
+          ABBI.setScreenID(sId);
+        }
+    });
   }
 
   @ReactMethod
   public void setLanguage(String language) {
-    ABBI.setLanguage(language);
+    final String lang = language;
+    Activity activity = this.getCurrentActivity();
+    activity.runOnUiThread(new Runnable() {
+        @Override
+        public void run() {
+          ABBI.setLanguage(lang);
+        }
+    });
   }
 
   private void sendEvent(ReactContext reactContext,
