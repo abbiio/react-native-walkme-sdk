@@ -11,7 +11,7 @@ RCT_EXPORT_MODULE()
 
 - (NSArray<NSString *> *)supportedEvents
 {
-  return @[wmCampaignInfoEventDismissed, wmCampaignInfoEventWillShow];
+  return @[wmCampaignInfoEventDismissed, wmCampaignInfoEventWillShow, wmCampaignInfoEventAction];
 }
 
 RCT_EXPORT_METHOD(start:(NSString *)key secret:(NSString *)secret)
@@ -113,6 +113,17 @@ __unused static id ObjectOrNull(id object) {
         @"data": ObjectOrNull(campaignInfo.campaignData)
     };
     [self sendEventWithName:wmCampaignInfoEventDismissed body:body];
+}
+
+- (void)campaign:(WMCampaignInfo *)campaign didPerformAction:(NSString *)actionType withArgs:(NSArray<NSString *> *)args andCompletion:(void (^)(id))completion {
+    NSDictionary *body = @{
+        @"campaign_id": ObjectOrNull(campaignInfo.campaignId),
+        @"cta": ObjectOrNull(campaignInfo.campaginCta),
+        @"cta_id": ObjectOrNull(campaignInfo.campaignCtaId),
+        @"data": ObjectOrNull(campaignInfo.campaignData),
+        @"action_type": ObjectOrNull(actionType),
+    };
+    [self sendEventWithName:wmCampaignInfoEventAction body:body];
 }
 
 @end

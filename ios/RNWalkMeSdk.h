@@ -11,6 +11,7 @@
 
 #define wmCampaignInfoEventDismissed    @"wmCampaignInfoEventDismissed"
 #define wmCampaignInfoEventWillShow     @"wmCampaignInfoEventWillShow"
+#define wmCampaignInfoEventAction       @"wmCampaignInfoEventAction"
 
 @interface RNWalkMeSdk : RCTEventEmitter <RCTBridgeModule, WMCampaignInfoDelegate>
 
