@@ -64,7 +64,7 @@ const WalkMeSDK = {
     },
     registerEventListener: function() {
         RNWalkMeSdk.registerEventListener();
-    },
+    }
 };
 
 export default WalkMeSDK;
