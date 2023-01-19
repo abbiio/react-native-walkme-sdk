@@ -61,7 +61,10 @@ const WalkMeSDK = {
     },
     setLanguage: function(language) {
         RNWalkMeSdk.setLanguage(language);
-    }
+    },
+    registerEventListener: function() {
+        RNWalkMeSdk.registerEventListener();
+    },
 };
 
 export default WalkMeSDK;

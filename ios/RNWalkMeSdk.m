@@ -91,6 +91,11 @@ RCT_EXPORT_METHOD(setLanguage:(NSString *)language)
     [ABBI setLanguage:language];
 }
 
+RCT_EXPORT_METHOD(registerEventListener)
+{
+    [ABBI setCampaignInfoDelegate:self];
+}
+
 #pragma mark - WMCampaignInfoDelegate
 
 __unused static id ObjectOrNull(id object) {

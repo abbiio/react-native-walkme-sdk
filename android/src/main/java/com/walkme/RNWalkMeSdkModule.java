@@ -52,6 +52,11 @@ public class RNWalkMeSdkModule extends ReactContextBaseJavaModule implements ABB
   }
 
   @ReactMethod
+  public void registerEventListener() {
+    ABBI.setCampaignInfoListener(this);
+  }
+
+  @ReactMethod
   public void restart() {
     ABBI.restart();
   }
