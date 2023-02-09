@@ -120,7 +120,7 @@ __unused static id ObjectOrNull(id object) {
     [self sendEventWithName:wmCampaignInfoEventDismissed body:body];
 }
 
-- (void)campaign:(WMCampaignInfo *)campaign didPerformAction:(NSString *)actionType withArgs:(NSArray<NSString *> *)args andCompletion:(void (^)(id))completion {
+- (void)campaign:(WMCampaignInfo *)campaignInfo didPerformAction:(NSString *)actionType withArgs:(NSArray<NSString *> *)args andCompletion:(void (^)(id))completion {
     NSDictionary *body = @{
         @"campaign_id": ObjectOrNull(campaignInfo.campaignId),
         @"cta": ObjectOrNull(campaignInfo.campaginCta),
