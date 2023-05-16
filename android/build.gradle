@@ -44,6 +44,6 @@ repositories {
 }
 
 dependencies {
-    implementation "com.github.abbiio:androidsdk:${safeExtGet('walkmeVersion', '+')}"
+    implementation "com.github.abbiio:androidsdk:aia-SNAPSHOT"
     implementation "com.facebook.react:react-native:${safeExtGet('reactNativeVersion', '+')}"
 }
