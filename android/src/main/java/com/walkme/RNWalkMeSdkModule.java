@@ -60,7 +60,7 @@ public class RNWalkMeSdkModule extends ReactContextBaseJavaModule implements ABB
 
         WMStartOptions options = new WMStartOptions(key, secret, this.getCurrentActivity());
         options.setCampaignInfoListener(this);
-        options.setReactListener(mUiManager);
+        options.setExternalUiListener(mUiManager);
         ABBI.start(options);
       } catch (Exception e) {
         Log.e("WalkMeSDK", "failed to start SDK " + e.getMessage());

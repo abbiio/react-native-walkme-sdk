@@ -19,7 +19,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import abbi.io.abbisdk.ABBI;
 
 @ReactModule(name = RNWalkMeSDKUiManager.NAME)
-public class RNWalkMeSDKUiManager extends ReactContextBaseJavaModule implements UIManagerListener, ABBI.WMReactListener{
+public class RNWalkMeSDKUiManager extends ReactContextBaseJavaModule implements UIManagerListener, ABBI.WMExternalUiListener{
 
     public static final String NAME = "RNWalkMeSDKUiManager";
 
@@ -28,7 +28,7 @@ public class RNWalkMeSDKUiManager extends ReactContextBaseJavaModule implements 
     private final RNWalkMeSdkWorkerHandler mWorkerHandler;
     private AtomicBoolean mIsViewChanged = new AtomicBoolean(false);
 
-    private ABBI.WMReactDelegate mDelegate;
+    private ABBI.WMExternalUiDelegate mDelegate;
 
     public RNWalkMeSDKUiManager(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -89,7 +89,7 @@ public class RNWalkMeSDKUiManager extends ReactContextBaseJavaModule implements 
                 @Override
                 public void run() {
                     mIsViewChanged.set(false);
-                    mDelegate.onReactViewChanged();
+                    mDelegate.onExternalViewChanged();
                 }
             }, 1000);
         }
@@ -101,7 +101,7 @@ public class RNWalkMeSDKUiManager extends ReactContextBaseJavaModule implements 
     }
 
     @Override
-    public void setExternalDelegate(ABBI.WMReactDelegate delegate) {
+    public void setExternalDelegate(ABBI.WMExternalUiDelegate delegate) {
         mDelegate = delegate;
     }
 }
