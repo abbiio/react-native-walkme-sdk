@@ -1,6 +1,7 @@
 
 package com.walkme;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import android.util.Log;
 
@@ -31,7 +32,7 @@ public class RNWalkMeSdkModule extends ReactContextBaseJavaModule implements ABB
   public static final String wmCampaignInfoEventWillShow    = "wmCampaignInfoEventWillShow";
   public static final String wmCampaignInfoEventAction      = "wmCampaignInfoEventAction";
 
-  private ReactApplicationContext mReactContext;
+  private final ReactApplicationContext mReactContext;
   private RNWalkMeSDKUiManager mUiManager;
 
 
@@ -40,6 +41,7 @@ public class RNWalkMeSdkModule extends ReactContextBaseJavaModule implements ABB
     mReactContext = reactContext;
   }
 
+  @NonNull
   @Override
   public String getName() {
     return "RNWalkMeSdk";
@@ -47,20 +49,34 @@ public class RNWalkMeSdkModule extends ReactContextBaseJavaModule implements ABB
 
   @ReactMethod
   public void start(String key, String secret) {
+    innerStart(key, secret, false);
+  }
+
+  @ReactMethod
+  public void startWithUiManager(String key, String secret) {
+    innerStart(key, secret, true);
+  }
+
+  @ReactMethod
+  private void innerStart(String key, String secret, boolean withUiManager) {
     if (this.getCurrentActivity() != null) {
       try {
-        mUiManager = mReactContext.getNativeModule(RNWalkMeSDKUiManager.class);
-        try {
-          if (mUiManager != null) {
-            mUiManager.startObserving();
-          }
-        } catch (Exception e) {
-          Log.e("WalkMeSDK", "failed to start observing UI manager " + e.getMessage());
-        }
-
         WMStartOptions options = new WMStartOptions(key, secret, this.getCurrentActivity());
         options.setCampaignInfoListener(this);
-        options.setExternalUiListener(mUiManager);
+
+        // in case we need to listen to UI changes in react native, for example relevant for stack navigation
+        if (withUiManager) {
+          try {
+            mUiManager = mReactContext.getNativeModule(RNWalkMeSDKUiManager.class);
+            if (mUiManager != null) {
+              mUiManager.startObserving();
+            }
+            options.setExternalUiListener(mUiManager);
+          } catch (Exception e) {
+            Log.e("WalkMeSDK", "failed to start observing UI manager " + e.getMessage());
+          }
+        }
+
         ABBI.start(options);
       } catch (Exception e) {
         Log.e("WalkMeSDK", "failed to start SDK " + e.getMessage());
