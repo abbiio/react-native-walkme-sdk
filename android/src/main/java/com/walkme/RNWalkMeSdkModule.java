@@ -1,9 +1,11 @@
 
 package com.walkme;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import android.util.Log;
 
+import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -30,10 +32,16 @@ public class RNWalkMeSdkModule extends ReactContextBaseJavaModule implements ABB
   public static final String wmCampaignInfoEventWillShow    = "wmCampaignInfoEventWillShow";
   public static final String wmCampaignInfoEventAction      = "wmCampaignInfoEventAction";
 
+  private final ReactApplicationContext mReactContext;
+  private RNWalkMeSDKUiManager mUiManager;
+
+
   public RNWalkMeSdkModule(ReactApplicationContext reactContext) {
     super(reactContext);
+    mReactContext = reactContext;
   }
 
+  @NonNull
   @Override
   public String getName() {
     return "RNWalkMeSdk";
@@ -41,10 +49,38 @@ public class RNWalkMeSdkModule extends ReactContextBaseJavaModule implements ABB
 
   @ReactMethod
   public void start(String key, String secret) {
+    innerStart(key, secret, false);
+  }
+
+  @ReactMethod
+  public void startWithUiManager(String key, String secret) {
+    innerStart(key, secret, true);
+  }
+
+  @ReactMethod
+  private void innerStart(String key, String secret, boolean withUiManager) {
     if (this.getCurrentActivity() != null) {
-      WMStartOptions options = new WMStartOptions(key, secret, this.getCurrentActivity());
-      options.setCampaignInfoListener(this);
-      ABBI.start(options);
+      try {
+        WMStartOptions options = new WMStartOptions(key, secret, this.getCurrentActivity());
+        options.setCampaignInfoListener(this);
+
+        // in case we need to listen to UI changes in react native, for example relevant for stack navigation
+        if (withUiManager) {
+          try {
+            mUiManager = mReactContext.getNativeModule(RNWalkMeSDKUiManager.class);
+            if (mUiManager != null) {
+              mUiManager.startObserving();
+            }
+            options.setExternalUiListener(mUiManager);
+          } catch (Exception e) {
+            Log.e("WalkMeSDK", "failed to start observing UI manager " + e.getMessage());
+          }
+        }
+
+        ABBI.start(options);
+      } catch (Exception e) {
+        Log.e("WalkMeSDK", "failed to start SDK " + e.getMessage());
+      }
     }
     else {
       Log.d("WalkMeSDK","Activity is null");
@@ -63,6 +99,9 @@ public class RNWalkMeSdkModule extends ReactContextBaseJavaModule implements ABB
 
   @ReactMethod
   public void stop() {
+    if (mUiManager != null) {
+      mUiManager.stopObserving();
+    }
     ABBI.stop();
   }
 
@@ -203,4 +242,5 @@ public class RNWalkMeSdkModule extends ReactContextBaseJavaModule implements ABB
 
     sendEvent(this.getReactApplicationContext(), wmCampaignInfoEventWillShow, params);
   }
+
 }
