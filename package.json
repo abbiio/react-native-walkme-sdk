@@ -1,7 +1,8 @@
 {
   "name": "react-native-walkme-sdk",
-  "version": "2.2.7",
+  "version": "2.2.8",
   "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
