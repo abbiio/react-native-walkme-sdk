@@ -21,6 +21,6 @@ declare module "react-native-walkme-sdk" {
         registerEventListener: () => void;
     };
 
-    export default appsFlyer;
+    export default RNWalkMeSDK;
 }
 

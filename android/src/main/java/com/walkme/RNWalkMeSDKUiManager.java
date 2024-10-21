@@ -74,7 +74,6 @@ public class RNWalkMeSDKUiManager extends ReactContextBaseJavaModule implements 
     public void didDispatchMountItems(UIManager uiManager) {
     }
 
-    @Override
     public void didMountItems(UIManager uiManager) {
     }
 
@@ -96,7 +95,6 @@ public class RNWalkMeSDKUiManager extends ReactContextBaseJavaModule implements 
         mIsViewChanged.set(true);
     }
 
-    @Override
     public void willMountItems(UIManager uiManager) {
     }
 
