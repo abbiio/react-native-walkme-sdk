@@ -21,6 +21,14 @@ RCT_EXPORT_METHOD(start:(NSString *)key secret:(NSString *)secret)
     [ABBI startWithOptions:options];
 }
 
+RCT_EXPORT_METHOD(startWithSelfHosted:(NSString *)key secret:(NSString *)secret selfHostedUrl:(NSString *)selfHostedUrl)
+{
+    WMStartOptions *options = [[WMStartOptions alloc] initWithKey:key andSecret:secret];
+    options.selfHostedURL = selfHostedUrl;
+    options.campaignInfoDelegate = self;
+    [ABBI startWithOptions:options];
+}
+
 RCT_EXPORT_METHOD(restart)
 {
     [ABBI restart];
@@ -66,9 +74,14 @@ RCT_EXPORT_METHOD(setFlag:(nonnull NSNumber *)num)
     [ABBI setFlag:num.intValue];
 }
 
-RCT_EXPORT_METHOD(trigger:(NSString *)trigger deepLink:(NSString *)deepLink)
+RCT_EXPORT_METHOD(triggerWithDeepLink:(NSString *)trigger deepLink:(NSString *)deepLink)
 {
     [ABBI trigger:trigger withDeepLink:deepLink];
+}
+
+RCT_EXPORT_METHOD(trigger:(NSString *)trigger)
+{
+    [ABBI trigger:trigger];
 }
 
 RCT_EXPORT_METHOD(setUserID:(NSString *)userId)

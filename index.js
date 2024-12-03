@@ -9,6 +9,9 @@ const WalkMeSDK = {
     start: function(key, secret) {
         RNWalkMeSdk.start(key, secret);
     },
+    startWithSelfHosted: function(key, secret, selfHostedUrl) {
+        RNWalkMeSdk.startWithSelfHosted(key, secret, selfHostedUrl);
+    },
     startWithUiManager: function(key, secret) {
         RNWalkMeSdk.startWithUiManager(key, secret);
     },
@@ -50,8 +53,11 @@ const WalkMeSDK = {
     setFlag: function(num) {
         RNWalkMeSdk.setFlag(num);
     },
-    trigger: function (trigger, deepLink) {
-        RNWalkMeSdk.trigger(trigger, deepLink);
+    triggerWithDeepLink: function (trigger, deepLink) {
+        RNWalkMeSdk.triggerWithDeepLink(trigger, deepLink);
+    },
+    trigger: function (trigger) {
+        RNWalkMeSdk.trigger(trigger);
     },
     setUserID: function(userID) {
         RNWalkMeSdk.setUserID(userID);

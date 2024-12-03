@@ -2,6 +2,7 @@ declare module "react-native-walkme-sdk" {
 
     const RNWalkMeSDK: {
         start: (key: string, secret: string) => void;
+        startWithSelfHosted: (key: string, secret: string, selfHostedUrl: string) => void;
         startWithUiManager: (key: string, secret: string) => void;
         campaignEventEmitter: NativeEventEmitter;
         restart: () => void;
@@ -13,7 +14,8 @@ declare module "react-native-walkme-sdk" {
         setPrivateUserAttributes: (attributes: any) => void;
         clearPrivateUserAttributes: () => void;
         setFlag: (num: number) => void;
-        trigger: (trigger: string, deepLink: string) => void;
+        triggerWithDeepLink: (trigger: string, deepLink: string) => void;
+        trigger: (trigger: string) => void;
         setUserID: (userID: string) => void;
         setEventsFilter: (events: any) => void;
         setScreenID: (screenID: string) => void;
