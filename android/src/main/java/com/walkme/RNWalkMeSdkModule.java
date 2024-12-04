@@ -49,37 +49,59 @@ public class RNWalkMeSdkModule extends ReactContextBaseJavaModule implements ABB
 
   @ReactMethod
   public void start(String key, String secret) {
-    innerStart(key, secret, false);
+    if (this.getCurrentActivity() != null) {
+      try {
+        WMStartOptions options = new WMStartOptions(key, secret, this.getCurrentActivity());
+        options.setCampaignInfoListener(this);
+        ABBI.start(options);
+      } catch (Exception e) {
+        Log.e("WalkMeSDK", "failed to start SDK " + e.getMessage());
+      }
+    }
+    else {
+      Log.d("WalkMeSDK","Activity is null");
+    }
   }
 
   @ReactMethod
   public void startWithUiManager(String key, String secret) {
-    innerStart(key, secret, true);
-  }
-
-  @ReactMethod
-  private void innerStart(String key, String secret, boolean withUiManager) {
     if (this.getCurrentActivity() != null) {
       try {
         WMStartOptions options = new WMStartOptions(key, secret, this.getCurrentActivity());
         options.setCampaignInfoListener(this);
 
         // in case we need to listen to UI changes in react native, for example relevant for stack navigation
-        if (withUiManager) {
-          try {
-            mUiManager = mReactContext.getNativeModule(RNWalkMeSDKUiManager.class);
-            if (mUiManager != null) {
-              mUiManager.startObserving();
-            }
-            options.setExternalUiListener(mUiManager);
-          } catch (Exception e) {
-            Log.e("WalkMeSDK", "failed to start observing UI manager " + e.getMessage());
+        try {
+          mUiManager = mReactContext.getNativeModule(RNWalkMeSDKUiManager.class);
+          if (mUiManager != null) {
+            mUiManager.startObserving();
           }
+          options.setExternalUiListener(mUiManager);
+        } catch (Exception e) {
+          Log.e("WalkMeSDK", "failed to start observing UI manager " + e.getMessage());
         }
 
         ABBI.start(options);
       } catch (Exception e) {
-        Log.e("WalkMeSDK", "failed to start SDK " + e.getMessage());
+        Log.e("WalkMeSDK", "failed to start SDK with UI Manager " + e.getMessage());
+      }
+    }
+    else {
+      Log.d("WalkMeSDK","Activity is null");
+    }
+  }
+
+  @ReactMethod
+  public void startWithSelfHosted(String key, String secret, String selfHostedUrl) {
+    if (this.getCurrentActivity() != null) {
+      try {
+        WMStartOptions options = new WMStartOptions(key, secret, this.getCurrentActivity());
+        options.setCampaignInfoListener(this);
+        options.setSelfHostedURL(selfHostedUrl);
+
+        ABBI.start(options);
+      } catch (Exception e) {
+        Log.e("WalkMeSDK", "failed to start SDK with self hosted " + e.getMessage());
       }
     }
     else {
@@ -111,6 +133,11 @@ public class RNWalkMeSdkModule extends ReactContextBaseJavaModule implements ABB
   }
 
   @ReactMethod
+  public void sendTrackedEvent(String goalName, ReadableMap properties) {
+    ABBI.sendTrackedEvent(goalName, properties != null ? properties.toHashMap() : null);
+  }
+
+  @ReactMethod
   public void setUserAttributes(ReadableMap object) {
     if (object != null) {
       ABBI.setUserAttributes(object.toHashMap());
@@ -137,6 +164,11 @@ public class RNWalkMeSdkModule extends ReactContextBaseJavaModule implements ABB
   @ReactMethod
   public void trigger(String trigger, String deeplink) {
     ABBI.trigger(trigger, deeplink);
+  }
+
+  @ReactMethod
+  public void triggerWithoutDeepLink(String trigger) {
+    ABBI.trigger(trigger);
   }
 
   @ReactMethod
