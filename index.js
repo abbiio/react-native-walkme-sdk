@@ -23,7 +23,11 @@ const WalkMeSDK = {
         RNWalkMeSdk.stop();
     },
     sendGoal: function(goalName, properties) {
+        console.warn("sendGoal method is deprecated and will be removed in future versions. Please use sendTrackedEvent instead.");
         RNWalkMeSdk.sendGoal(goalName, properties);
+    },
+    sendTrackedEvent: function(eventName, properties) {
+        RNWalkMeSdk.sendTrackedEvent(eventName, properties);
     },
     setUserAttribute: function(key, value) {
         if (Platform.OS === 'ios') {
@@ -53,11 +57,11 @@ const WalkMeSDK = {
     setFlag: function(num) {
         RNWalkMeSdk.setFlag(num);
     },
-    triggerWithDeepLink: function (trigger, deepLink) {
-        RNWalkMeSdk.triggerWithDeepLink(trigger, deepLink);
+    trigger: function (trigger, deepLink) {
+        RNWalkMeSdk.trigger(trigger, deepLink);
     },
-    trigger: function (trigger) {
-        RNWalkMeSdk.trigger(trigger);
+    triggerWithoutDeepLink: function (trigger) {
+        RNWalkMeSdk.triggerWithoutDeepLink(trigger);
     },
     setUserID: function(userID) {
         RNWalkMeSdk.setUserID(userID);

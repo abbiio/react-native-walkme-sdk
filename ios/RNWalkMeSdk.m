@@ -44,6 +44,11 @@ RCT_EXPORT_METHOD(sendGoal:(NSString *)goalName properites:(NSDictionary *)prope
     [ABBI sendGoal:goalName withProperites:properties];
 }
 
+RCT_EXPORT_METHOD(sendTrackedEvent:(NSString *)eventName properites:(NSDictionary *)properties)
+{
+    [ABBI sendTrackedEvent:eventName withProperites:properties];
+}
+
 RCT_EXPORT_METHOD(setUserAttribute:(NSString *)key value:(id)value)
 {
     [ABBI setUserAttributeWithKey:key andValue:value];
@@ -74,12 +79,12 @@ RCT_EXPORT_METHOD(setFlag:(nonnull NSNumber *)num)
     [ABBI setFlag:num.intValue];
 }
 
-RCT_EXPORT_METHOD(triggerWithDeepLink:(NSString *)trigger deepLink:(NSString *)deepLink)
+RCT_EXPORT_METHOD(trigger:(NSString *)trigger deepLink:(NSString *)deepLink)
 {
     [ABBI trigger:trigger withDeepLink:deepLink];
 }
 
-RCT_EXPORT_METHOD(trigger:(NSString *)trigger)
+RCT_EXPORT_METHOD(triggerWithoutDeepLink:(NSString *)trigger)
 {
     [ABBI trigger:trigger];
 }
