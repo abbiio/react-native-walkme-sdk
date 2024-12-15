@@ -4,6 +4,7 @@ declare module "react-native-walkme-sdk" {
         start: (key: string, secret: string) => void;
         startWithSelfHosted: (key: string, secret: string, selfHostedUrl: string) => void;
         startWithUiManager: (key: string, secret: string) => void;
+        startWithNoCallback: (key: string, secret: string) => void;
         campaignEventEmitter: NativeEventEmitter;
         restart: () => void;
         stop: () => void;

@@ -69,7 +69,6 @@ public class RNWalkMeSdkModule extends ReactContextBaseJavaModule implements ABB
       try {
         WMStartOptions options = new WMStartOptions(key, secret, this.getCurrentActivity());
         options.setCampaignInfoListener(this);
-
         // in case we need to listen to UI changes in react native, for example relevant for stack navigation
         try {
           mUiManager = mReactContext.getNativeModule(RNWalkMeSDKUiManager.class);
@@ -80,7 +79,6 @@ public class RNWalkMeSdkModule extends ReactContextBaseJavaModule implements ABB
         } catch (Exception e) {
           Log.e("WalkMeSDK", "failed to start observing UI manager " + e.getMessage());
         }
-
         ABBI.start(options);
       } catch (Exception e) {
         Log.e("WalkMeSDK", "failed to start SDK with UI Manager " + e.getMessage());
@@ -98,10 +96,26 @@ public class RNWalkMeSdkModule extends ReactContextBaseJavaModule implements ABB
         WMStartOptions options = new WMStartOptions(key, secret, this.getCurrentActivity());
         options.setCampaignInfoListener(this);
         options.setSelfHostedURL(selfHostedUrl);
-
         ABBI.start(options);
       } catch (Exception e) {
         Log.e("WalkMeSDK", "failed to start SDK with self hosted " + e.getMessage());
+      }
+    }
+    else {
+      Log.d("WalkMeSDK","Activity is null");
+    }
+  }
+
+  @ReactMethod
+  public void startWithNoCallback(String key, String secret) {
+    if (this.getCurrentActivity() != null) {
+      try {
+        WMStartOptions options = new WMStartOptions(key, secret, this.getCurrentActivity());
+        options.setCampaignInfoListener(this);
+        options.setNoCallback(true);
+        ABBI.start(options);
+      } catch (Exception e) {
+        Log.e("WalkMeSDK", "failed to start SDK with no callback flag true  " + e.getMessage());
       }
     }
     else {

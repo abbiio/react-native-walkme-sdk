@@ -15,6 +15,9 @@ const WalkMeSDK = {
     startWithUiManager: function(key, secret) {
         RNWalkMeSdk.startWithUiManager(key, secret);
     },
+    startWithNoCallback: function(key, secret) {
+        RNWalkMeSdk.startWithNoCallback(key, secret);
+    },
     campaignEventEmitter: wmCampaignInfoEventEmitter,
     restart: function() {
         RNWalkMeSdk.restart();
