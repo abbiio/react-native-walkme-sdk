@@ -37,35 +37,47 @@
 import WalkMeSDK from 'react-native-walkme-sdk';
 ...
 /**
- * Starts ABBI SDK.
+ * Starts WalkMe SDK.
  *
  * @param appId The Application Id provided by WalkMe
  * @param appSecretKey The Application Secret key provided by WalkMe
  *
  * To get your Application Id and Application Secret key, login to WalkMe console at https://console.mobile.walkme.com
- * and click the settings icon near your Application Name. You can find more info here - https://walkme-mobile.zendesk.com/hc
+ * and click the settings icon near your Application Name. 
  */
 WalkMeSDK.start(appId, appSecretKey)
 
 /**
- * Restarts ABBI SDK.
+ * Starts WalkMe SDK - FOR SELF-HOSTED APPS ONLY!
  *
- * This method can be called only after ABBI start was called first.
- * Restart ABBI SDK is allowed if old session is at least 1 minute old
+ * @param appId The Application Id provided by WalkMe
+ * @param appSecretKey The Application Secret key provided by WalkMe
+ * @param selfHostedUrl The self hosted url
+ *
+ * To get your Application Id and Application Secret key, login to WalkMe console at https://console.mobile.walkme.com
+ * and click the settings icon near your Application Name. 
+ */
+WalkMeSDK.startWithSelfHosted(appId, appSecretKey, selfHostedUrl)
+
+/**
+ * Restarts WalkMe SDK.
+ *
+ * This method can be called only after WalkMe start was called first.
+ * Restart WalkMe SDK is allowed if old session is at least 1 minute old
  */
 WalkMeSDK.restart()
 
 /**
- * Stop ABBI SDK.
+ * Stop WalkMe SDK.
  *
- * This method can be called only after ABBI start was called first.
- * Stop abbi SDK is allowed if old session is at least 1 minute old
+ * This method can be called only after WalkMe start was called first.
+ * Stop WalkMe SDK is allowed if old session is at least 1 minute old
  */
 WalkMeSDK.stop()
 
 
 /**
- * Sends a Goal to ABBI's Backend.
+ * Sends a Goal to WalkMe's Backend.
  * A Goal is a user action that can be used to target your users.
  *
  * Usage Example :@
@@ -77,6 +89,21 @@ WalkMeSDK.stop()
  * @param properties the Goal properties, key-value structured (if any).
  */
 WalkMeSDK.sendGoal(goalName, properties)
+
+/**
+ * Sends a Tracked Event to WalkMe's Backend.
+ * A Tracked Event is a user action that can be used to target your users.
+ *
+ * Usage Example :@
+ *
+ * WalkMeSDK.sendTrackedEvent("trackedEvent")
+ * WalkMeSDK.sendTrackedEvent("trackedEvent", {"x": 3, "y": "yes", "z": false})
+ *
+ * @param trackedEventName the Tracked Event name.
+ * @param properties the Tracked Event properties, key-value structured (if any).
+ */
+WalkMeSDK.sendTrackedEvent(trackedEventName, properties)
+
 
 /**
  * Sets a user attribute
@@ -130,7 +157,7 @@ WalkMeSDK.setPrivateUserAttributes(attributes)
 WalkMeSDK.clearPrivateUserAttributes()
 
 /**
- * Launches a campaign by trigger key
+ * Launches a campaign by trigger key after redirecting the user to the given deep link
  * Once invoked, the method will show the campaign WITHOUT any of its segments (if defined)
  *
  * @code
@@ -138,6 +165,16 @@ WalkMeSDK.clearPrivateUserAttributes()
  * WalkMeSDK.trigger("key", "myApp://home/signup")
  */
 WalkMeSDK.trigger(key, deepLink)
+
+/**
+ * Launches a campaign by trigger key
+ * Once invoked, the method will show the campaign WITHOUT any of its segments (if defined)
+ *
+ * @code
+ * Usage Example :
+ * WalkMeSDK.trigger("key")
+ */
+WalkMeSDK.triggerWithoutDeepLink(key)
 
 /**
  * Sets user id
