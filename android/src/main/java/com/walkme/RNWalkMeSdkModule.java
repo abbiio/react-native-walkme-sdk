@@ -288,5 +288,15 @@ public class RNWalkMeSdkModule extends ReactContextBaseJavaModule implements ABB
 
     sendEvent(this.getReactApplicationContext(), wmCampaignInfoEventWillShow, params);
   }
+    
+  @ReactMethod
+  public void addListener(String eventName) {
+      // Keep: Required for RN built-in Event Emitter Calls.
+  }
+
+  @ReactMethod
+  public void removeListeners(Integer count) {
+        // Keep: Required for RN built-in Event Emitter Calls.
+  }
 
 }
