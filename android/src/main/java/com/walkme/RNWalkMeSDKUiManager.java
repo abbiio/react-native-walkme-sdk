@@ -87,8 +87,14 @@ public class RNWalkMeSDKUiManager extends ReactContextBaseJavaModule implements 
             mWorkerHandler.runOnWorkerThread(new Runnable() {
                 @Override
                 public void run() {
-                    mIsViewChanged.set(false);
-                    mDelegate.onExternalViewChanged();
+                    try {
+                        mIsViewChanged.set(false);
+                        if (mDelegate != null) {
+                            mDelegate.onExternalViewChanged();
+                        }
+                    } catch (Exception e) {
+                        Log.e("WalkMeSDK", "Failed to call to onExternalViewChanged: " + e.getMessage());
+                    }
                 }
             }, 1000);
         }
