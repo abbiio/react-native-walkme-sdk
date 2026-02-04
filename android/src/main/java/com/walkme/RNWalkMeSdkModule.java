@@ -49,78 +49,81 @@ public class RNWalkMeSdkModule extends ReactContextBaseJavaModule implements ABB
 
   @ReactMethod
   public void start(String key, String secret) {
-    if (this.getCurrentActivity() != null) {
       try {
-        WMStartOptions options = new WMStartOptions(key, secret, this.getCurrentActivity());
-        options.setCampaignInfoListener(this);
-        ABBI.start(options);
+        WMStartOptions options = createStartOptions(key, secret);
+        if (options != null) {
+            options.setCampaignInfoListener(this);
+            ABBI.start(options);
+        }
       } catch (Exception e) {
         Log.e("WalkMeSDK", "failed to start SDK " + e.getMessage());
       }
-    }
-    else {
-      Log.d("WalkMeSDK","Activity is null");
-    }
   }
 
   @ReactMethod
   public void startWithUiManager(String key, String secret) {
-    if (this.getCurrentActivity() != null) {
       try {
-        WMStartOptions options = new WMStartOptions(key, secret, this.getCurrentActivity());
-        options.setCampaignInfoListener(this);
-        // in case we need to listen to UI changes in react native, for example relevant for stack navigation
-        try {
-          mUiManager = mReactContext.getNativeModule(RNWalkMeSDKUiManager.class);
-          if (mUiManager != null) {
-            mUiManager.startObserving();
-          }
-          options.setExternalUiListener(mUiManager);
-        } catch (Exception e) {
-          Log.e("WalkMeSDK", "failed to start observing UI manager " + e.getMessage());
+        WMStartOptions options = createStartOptions(key, secret);
+        if (options != null) {
+            options.setCampaignInfoListener(this);
+            // in case we need to listen to UI changes in react native, for example relevant for stack navigation
+            try {
+              mUiManager = mReactContext.getNativeModule(RNWalkMeSDKUiManager.class);
+              if (mUiManager != null) {
+                mUiManager.startObserving();
+              }
+              options.setExternalUiListener(mUiManager);
+            } catch (Exception e) {
+              Log.e("WalkMeSDK", "failed to start observing UI manager " + e.getMessage());
+            }
+            ABBI.start(options);
         }
-        ABBI.start(options);
       } catch (Exception e) {
         Log.e("WalkMeSDK", "failed to start SDK with UI Manager " + e.getMessage());
       }
-    }
-    else {
-      Log.d("WalkMeSDK","Activity is null");
-    }
   }
 
   @ReactMethod
   public void startWithSelfHosted(String key, String secret, String selfHostedUrl) {
-    if (this.getCurrentActivity() != null) {
       try {
-        WMStartOptions options = new WMStartOptions(key, secret, this.getCurrentActivity());
-        options.setCampaignInfoListener(this);
-        options.setSelfHostedURL(selfHostedUrl);
-        ABBI.start(options);
+        WMStartOptions options = createStartOptions(key, secret);
+        if (options != null) {
+            options.setCampaignInfoListener(this);
+            options.setSelfHostedURL(selfHostedUrl);
+            ABBI.start(options);
+        }
       } catch (Exception e) {
         Log.e("WalkMeSDK", "failed to start SDK with self hosted " + e.getMessage());
       }
-    }
-    else {
-      Log.d("WalkMeSDK","Activity is null");
-    }
   }
 
   @ReactMethod
   public void startWithNoCallback(String key, String secret) {
-    if (this.getCurrentActivity() != null) {
       try {
-        WMStartOptions options = new WMStartOptions(key, secret, this.getCurrentActivity());
-        options.setCampaignInfoListener(this);
-        options.setNoCallback(true);
-        ABBI.start(options);
+        WMStartOptions options = createStartOptions(key, secret);
+
+        if (options != null) {
+            options.setCampaignInfoListener(this);
+            options.setNoCallback(true);
+            ABBI.start(options);
+        }
       } catch (Exception e) {
         Log.e("WalkMeSDK", "failed to start SDK with no callback flag true  " + e.getMessage());
       }
-    }
-    else {
-      Log.d("WalkMeSDK","Activity is null");
-    }
+  }
+
+  @Nullable
+  private WMStartOptions createStartOptions(String appKey, String secret) {
+      WMStartOptions options = null;
+
+      Context appContext = getReactApplicationContext().getApplicationContext();
+      if (appContext instanceof Application) {
+          options = new WMStartOptions(appKey, secret, (Application) appContext);
+      } else if (this.getReactApplicationContext().getCurrentActivity() != null) {
+          options = new WMStartOptions(appKey, secret, this.getReactApplicationContext().getCurrentActivity());
+      }
+
+      return options;
   }
 
   @ReactMethod
