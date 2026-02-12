@@ -1,6 +1,6 @@
 {
   "name": "react-native-walkme-sdk",
-  "version": "2.2.13",
+  "version": "2.2.14",
   "main": "index.js",
   "types": "index.d.ts",
   "scripts": {

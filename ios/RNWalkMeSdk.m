@@ -29,6 +29,13 @@ RCT_EXPORT_METHOD(startWithSelfHosted:(NSString *)key secret:(NSString *)secret 
     [ABBI startWithOptions:options];
 }
 
+RCT_EXPORT_METHOD(startWithNoCallback:(NSString *)key secret:(NSString *)secret)
+{
+    WMStartOptions *options = [[WMStartOptions alloc] initWithKey:key andSecret:secret];
+    options.campaignInfoDelegate = self;
+    [ABBI startWithOptions:options];
+}
+
 RCT_EXPORT_METHOD(restart)
 {
     [ABBI restart];
